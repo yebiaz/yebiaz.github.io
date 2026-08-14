@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emily Biaz, Designer and Coder</title>
+<meta name="description" content="Emily Biaz, designer and coder. Creative tech that is usable and impactful.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ─────────────────────────  nav  ───────────────────────── -->
+<nav class="dock" aria-label="Main">
+  <a href="#top" class="dock-btn" data-tip="Home" aria-label="Home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2 12 4l9 7.2"/><path d="M5.5 9.8V20h13V9.8"/></svg>
+  </a>
+  <a href="#work" class="dock-btn" data-tip="Projects" aria-label="Projects">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a1.6 1.6 0 0 0-1.6 1.6v14.8A1.6 1.6 0 0 0 7 21h10a1.6 1.6 0 0 0 1.6-1.6V7.6z"/><path d="M14 3v4.6h4.6"/><path d="M8.8 12.5h6.4M8.8 16h4.6"/></svg>
+  </a>
+  <a href="#about" class="dock-btn" data-tip="About" aria-label="About">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.8 20c0-3.6 3.2-5.8 7.2-5.8s7.2 2.2 7.2 5.8"/></svg>
+  </a>
+  <span class="dock-rule" aria-hidden="true"></span>
+  <a href="https://www.linkedin.com/in/emily-biaz-783236280" target="_blank" rel="noopener"
+     class="dock-btn" data-tip="LinkedIn" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.4" y="3.4" width="17.2" height="17.2" rx="2"/><path d="M7.4 10.4V17M7.4 7.3v.1"/><path d="M11.4 17v-6.6M11.4 13.2c0-1.6 1-2.6 2.4-2.6s2.4 1 2.4 2.6V17"/></svg>
+  </a>
+  <a href="assets/Emily_Biaz_Resume.pdf" target="_blank" rel="noopener"
+     class="dock-btn" data-tip="Resume" aria-label="Resume">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6v11.2"/><path d="M7.8 10.6 12 14.8l4.2-4.2"/><path d="M4.6 18.2v1.2A1.2 1.2 0 0 0 5.8 20.6h12.4a1.2 1.2 0 0 0 1.2-1.2v-1.2"/></svg>
+  </a>
+</nav>
+
+<!-- ─────────────────────────  hero  ───────────────────────── -->
+<header id="top" class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="name-mark reveal">Emily Biaz</p>
+      <h1 class="reveal">Designer<br>and coder.</h1>
+      <p class="lede reveal">
+        I strive for creative tech that is usable and impactful.
+        Always ready to learn and adapt to new places.
+      </p>
+      <a href="#work" class="scroll-cue reveal" aria-label="Scroll to projects">
+        <span>Selected work</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v14"/><path d="M6.4 13.2 12 18.8l5.6-5.6"/></svg>
+      </a>
+    </div>
+    <figure class="portrait reveal">
+      <img src="assets/headshot.jpg" alt="Emily Biaz" width="720" height="720">
+    </figure>
+  </div>
+</header>
+
+<!-- ─────────────────────────  projects  ───────────────────────── -->
+<main id="work" class="section">
+  <div class="wrap">
+    <h2 class="section-title reveal">Projects</h2>
+    <div class="grid" id="grid"><!-- cards injected by script.js --></div>
+  </div>
+</main>
+
+<!-- ─────────────────────────  about  ───────────────────────── -->
+<section id="about" class="section about">
+  <div class="wrap">
+    <h2 class="section-title reveal">About me</h2>
+    <div class="about-grid">
+      <div class="about-main reveal">
+        <p>
+          I'm <strong>Emily Biaz</strong>, a Computation and Design / Computer Science
+          student at Duke Kunshan University, on the dual-diploma programme with Duke
+          University.
+        </p>
+        <p>
+          I've gravitated toward both code and design for as long as I've been making
+          things, and I've stopped treating that as a choice I have to make. The work I
+          like best sits where the two meet: a model that needs an interface, an interface
+          that needs a model underneath it.
+        </p>
+        <p>
+          I'm not intimidated by new places, new people, or new subjects. I've moved
+          between countries, languages, and disciplines enough to know I get my footing
+          quickly.
+        </p>
+      </div>
+      <aside class="about-side reveal">
+        <div class="side-block">
+          <p class="side-label">Hobbies</p>
+          <p>Singing, pottery, any and all word games</p>
+        </div>
+        <div class="side-block">
+          <p class="side-label">Currently reading</p>
+          <p><em>The Picture of Dorian Gray</em></p>
+        </div>
+        <div class="side-block">
+          <p class="side-label">Last read</p>
+          <p><em>Brave New World</em></p>
+        </div>
+        <div class="side-block">
+          <p class="side-label">Available</p>
+          <p>May 10 - August 6, 2027</p>
+          <p>Can work in US</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="contact reveal">
+      <a href="mailto:emily.biaz@gmail.com" class="tag tag-link">emily.biaz@gmail.com</a>
+      <a href="https://www.linkedin.com/in/emily-biaz-783236280" target="_blank" rel="noopener" class="tag tag-link">LinkedIn</a>
+      <a href="assets/Emily_Biaz_Resume.pdf" target="_blank" rel="noopener" class="tag tag-link">Resume (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap"><p>Emily Biaz &middot; 2026</p></div>
+</footer>
+
+<!-- ─────────────────────────  project modal  ───────────────────────── -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal-scrim" data-close></div>
+  <article class="modal-panel" role="document">
+    <button class="modal-close" data-close aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+
+    <div class="gallery">
+      <div class="gallery-stage" id="stage"></div>
+      <button class="gal-arrow prev" id="prev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5.5 8 12l7 6.5"/></svg>
+      </button>
+      <button class="gal-arrow next" id="next" aria-label="Next image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5 16 12l-7 6.5"/></svg>
+      </button>
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <div class="modal-body">
+      <p class="modal-date" id="modal-date"></p>
+      <h3 id="modal-title"></h3>
+      <div class="modal-text" id="modal-text"></div>
+      <p class="side-label">Skills</p>
+      <div class="tags" id="modal-skills"></div>
+      <div class="tags" id="modal-links"></div>
+    </div>
+  </article>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
