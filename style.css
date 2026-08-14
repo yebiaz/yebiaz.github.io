@@ -142,15 +142,27 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
   align-items:center;
 }
 
-/* the name, set big enough to be read rather than skimmed past */
+/* the name is now the display type: Georgia, honey, full size */
 .name-mark{
-  font-family:var(--mono);
-  font-size:clamp(.9rem,1.7vw,1.15rem);
-  letter-spacing:.42em;
-  text-transform:uppercase;
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:clamp(3.4rem,11vw,8rem);
+  line-height:.94;
+  letter-spacing:-.02em;
   color:var(--honey);
+  margin:.5rem 0 1.4rem;
+}
+
+/* the role line above the name, and the lede below it, match each other:
+   mono, grey, mid size */
+.hero-role,.hero .lede{
+  font-family:var(--mono);
+  font-size:clamp(1.1rem,1.9vw,1.4rem);
+  line-height:1.6;
+  color:var(--paper);
   margin:0;
 }
+.hero-role{letter-spacing:.02em}
 
 .portrait{margin:0; position:relative; width:fit-content}
 .portrait img{
@@ -169,26 +181,7 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
   border-radius:50%;
   pointer-events:none;
 }
-.hero h1{
-  font-size:clamp(3.4rem,11vw,8rem);
-  line-height:.94;
-  margin:1.1rem 0 1.6rem;
-}
-.hero .lede{
-  max-width:34ch;
-  font-size:clamp(1.05rem,2vw,1.3rem);
-  color:var(--paper-dim);
-  margin:0 0 3rem;
-}
-.scroll-cue{
-  display:inline-flex; align-items:center; gap:.7rem;
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--paper-faint); text-decoration:none;
-  transition:.3s var(--ease);
-}
-.scroll-cue svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; animation:bob 2.4s var(--ease) infinite}
-.scroll-cue:hover{color:var(--honey)}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.hero .lede{max-width:44ch}
 
 /* ── project grid ──────────────────────────────────────── */
 
@@ -223,10 +216,11 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
   transition:filter .5s var(--ease), transform .6s var(--ease);
 }
 .card:hover .card-media img,.card:hover .card-media video,
-.card:focus-within .card-media img{
+.card:focus-within .card-media img,
+.card.is-lit .card-media img,.card.is-lit .card-media video{
   filter:grayscale(0) contrast(1) brightness(1);
-  transform:scale(1.05);
 }
+.card:hover .card-media img,.card:hover .card-media video{transform:scale(1.05)}
 .card-media::after{
   content:""; position:absolute; inset:0;
   background:linear-gradient(to top, rgba(26,20,16,.55), transparent 55%);
@@ -240,16 +234,24 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 .tag-more{
   border-color:rgba(223,162,43,.5); color:var(--honey);
   display:inline-flex; align-items:center; gap:.4rem;
-  /* it is a real <button> now, so undo the browser chrome */
-  background:transparent; cursor:pointer; line-height:inherit;
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.06em;
+  text-decoration:none; position:relative; z-index:2;
 }
 .tag-more svg{width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:transform .3s var(--ease)}
 .card:hover .tag-more{background:var(--honey); color:var(--ground); border-color:var(--honey)}
 .card:hover .tag-more svg{transform:translateX(3px)}
 
 /* the repo tag is a live link: it opens the repo, not the project pop-up */
-a.tag-repo{border-color:rgba(126,150,104,.5); color:var(--moss); text-decoration:none; position:relative; z-index:2}
+a.tag-repo{
+  border-color:rgba(126,150,104,.5); color:var(--moss); text-decoration:none;
+  position:relative; z-index:2;
+  display:inline-flex; align-items:center; gap:.4rem;
+}
+a.tag-repo svg{
+  width:12px; height:12px; flex:none;
+  fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+  transition:transform .3s var(--ease);
+}
+a.tag-repo:hover svg{transform:translateX(3px)}
 .card:hover a.tag-repo{border-color:var(--moss)}
 a.tag-repo:hover{background:var(--moss); color:var(--ground); border-color:var(--moss)}
 
@@ -342,6 +344,75 @@ a.tag-repo:hover{background:var(--moss); color:var(--ground); border-color:var(-
 .modal-body .side-label{margin:2rem 0 .7rem}
 #modal-links{margin-top:1.2rem}
 
+
+/* ══ project detail page ══════════════════════════════════ */
+
+.detail{padding:8.5rem 0 4rem; position:relative; z-index:1}
+
+.back-link{
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--paper-dim); text-decoration:none;
+  border:1px solid var(--line); border-radius:2px;
+  padding:.5rem .9rem;
+  transition:.25s var(--ease);
+}
+.back-link svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.back-link:hover{border-color:var(--honey); color:var(--honey)}
+.back-bottom{margin-top:4rem}
+
+.detail-date{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--paper-faint); margin:3rem 0 .6rem;
+}
+
+/* title and repo link share a line, the link sitting just after the title */
+.detail-head{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:1rem 1.2rem;
+  padding-bottom:1.4rem; margin-bottom:2.6rem;
+  border-bottom:1px solid var(--line);
+}
+.detail-head h1{
+  font-size:clamp(2rem,4.6vw,3.2rem); line-height:1.05; margin:0;
+}
+
+.detail-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:clamp(2rem,5vw,4.5rem); align-items:start}
+.detail-left{}
+.detail-left .side-label{margin:0 0 .7rem}
+.detail-body{margin-top:2.2rem}
+.detail-body p{margin:0 0 1.2rem; color:var(--paper-dim); max-width:58ch}
+.detail-body p strong{color:var(--paper); font-weight:400}
+.detail-body .note{font-size:.92rem; color:var(--paper-faint); font-style:italic}
+
+/* images stack one above the next, so the reader scrolls through them */
+.detail-media{display:flex; flex-direction:column; gap:1.6rem}
+.detail-media.media-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem}
+
+.media-item{
+  position:relative; margin:0;
+  border:1px solid var(--line); background:var(--ground-2);
+  overflow:hidden;
+}
+/* A portrait screenshot at full column width becomes enormous and drags the
+   media column far below the text. Cap the height and centre instead. */
+.media-item img,.media-item video{
+  display:block; margin:0 auto;
+  width:auto; max-width:100%;
+  height:auto; max-height:min(62vh,540px);
+}
+.detail-media.media-grid .media-item img{max-height:min(40vh,340px)}
+.media-video{border:0; background:none}
+.video-caption{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--paper-faint); margin-top:.6rem; text-align:right;
+}
+
+@media (max-width:900px){
+  .detail-grid{grid-template-columns:1fr; gap:2.5rem}
+  .detail-left{position:static}
+  .detail-media.media-grid{grid-template-columns:1fr}
+}
+
 /* ── scroll reveal ─────────────────────────────────────── */
 
 .reveal{opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease)}
@@ -354,7 +425,6 @@ a.tag-repo:hover{background:var(--moss); color:var(--ground); border-color:var(-
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1; transform:none; transition:none}
-  .scroll-cue svg{animation:none}
 }
 
 /* Touch screens have no hover, so the greyscale would simply never lift.

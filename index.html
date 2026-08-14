@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emily Biaz, Designer and Coder</title>
+<title>Emily Biaz - Designer and Coder</title>
 <meta name="description" content="Emily Biaz, designer and coder. Creative tech that is usable and impactful.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,16 +39,12 @@
 <header id="top" class="hero">
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <p class="name-mark reveal">Emily Biaz</p>
-      <h1 class="reveal">Designer<br>and coder.</h1>
+      <p class="hero-role reveal">Designer and coder.</p>
+      <h1 class="name-mark reveal">Emily Biaz</h1>
       <p class="lede reveal">
         I strive for creative tech that is usable and impactful.
-        Always ready to learn and adapt to new places.
+        Always learning, always adapting.
       </p>
-      <a href="#work" class="scroll-cue reveal" aria-label="Scroll to projects">
-        <span>Selected work</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v14"/><path d="M6.4 13.2 12 18.8l5.6-5.6"/></svg>
-      </a>
     </div>
     <figure class="portrait reveal">
       <img src="assets/headshot.jpg" alt="Emily Biaz" width="720" height="720">
@@ -71,20 +67,12 @@
     <div class="about-grid">
       <div class="about-main reveal">
         <p>
-          I'm <strong>Emily Biaz</strong>, a Computation and Design / Computer Science
-          student at Duke Kunshan University, on the dual-diploma programme with Duke
-          University.
-        </p>
-        <p>
-          I've gravitated toward both code and design for as long as I've been making
-          things, and I've stopped treating that as a choice I have to make. The work I
-          like best sits where the two meet: a model that needs an interface, an interface
-          that needs a model underneath it.
-        </p>
-        <p>
-          I'm not intimidated by new places, new people, or new subjects. I've moved
-          between countries, languages, and disciplines enough to know I get my footing
-          quickly.
+          I'm <strong>Emily Biaz</strong>, a student at Duke Kunshan University, on the
+          dual-diploma programme with Duke University. My path has long swung like a
+          pendulum: in high school, I was tugged between literature and math, arts and
+          problem solving. By majoring in Computation and Design with a track in Computer
+          Science, my pendulum has begun to settle, and I have been enjoying projects that
+          bring me ever deeper into my intersection.
         </p>
       </div>
       <aside class="about-side reveal">
@@ -95,10 +83,6 @@
         <div class="side-block">
           <p class="side-label">Currently reading</p>
           <p><em>The Picture of Dorian Gray</em></p>
-        </div>
-        <div class="side-block">
-          <p class="side-label">Last read</p>
-          <p><em>Brave New World</em></p>
         </div>
         <div class="side-block">
           <p class="side-label">Available</p>
@@ -120,36 +104,7 @@
   <div class="wrap"><p>Emily Biaz &middot; 2026</p></div>
 </footer>
 
-<!-- ─────────────────────────  project modal  ───────────────────────── -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
-  <div class="modal-scrim" data-close></div>
-  <article class="modal-panel" role="document">
-    <button class="modal-close" data-close aria-label="Close">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-    </button>
-
-    <div class="gallery">
-      <div class="gallery-stage" id="stage"></div>
-      <button class="gal-arrow prev" id="prev" aria-label="Previous image">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5.5 8 12l7 6.5"/></svg>
-      </button>
-      <button class="gal-arrow next" id="next" aria-label="Next image">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5.5 16 12l-7 6.5"/></svg>
-      </button>
-      <div class="dots" id="dots"></div>
-    </div>
-
-    <div class="modal-body">
-      <p class="modal-date" id="modal-date"></p>
-      <h3 id="modal-title"></h3>
-      <div class="modal-text" id="modal-text"></div>
-      <p class="side-label">Skills</p>
-      <div class="tags" id="modal-skills"></div>
-      <div class="tags" id="modal-links"></div>
-    </div>
-  </article>
-</div>
-
+<script src="data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

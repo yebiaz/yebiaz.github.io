@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project - Emily Biaz</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="dock" aria-label="Main">
+  <a href="index.html#top" class="dock-btn" data-tip="Home" aria-label="Home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2 12 4l9 7.2"/><path d="M5.5 9.8V20h13V9.8"/></svg>
+  </a>
+  <a href="index.html#work" class="dock-btn" data-tip="Projects" aria-label="Projects">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a1.6 1.6 0 0 0-1.6 1.6v14.8A1.6 1.6 0 0 0 7 21h10a1.6 1.6 0 0 0 1.6-1.6V7.6z"/><path d="M14 3v4.6h4.6"/><path d="M8.8 12.5h6.4M8.8 16h4.6"/></svg>
+  </a>
+  <a href="index.html#about" class="dock-btn" data-tip="About" aria-label="About">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.8 20c0-3.6 3.2-5.8 7.2-5.8s7.2 2.2 7.2 5.8"/></svg>
+  </a>
+  <span class="dock-rule" aria-hidden="true"></span>
+  <a href="https://www.linkedin.com/in/emily-biaz-783236280" target="_blank" rel="noopener"
+     class="dock-btn" data-tip="LinkedIn" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.4" y="3.4" width="17.2" height="17.2" rx="2"/><path d="M7.4 10.4V17M7.4 7.3v.1"/><path d="M11.4 17v-6.6M11.4 13.2c0-1.6 1-2.6 2.4-2.6s2.4 1 2.4 2.6V17"/></svg>
+  </a>
+  <a href="assets/Emily_Biaz_Resume.pdf" target="_blank" rel="noopener"
+     class="dock-btn" data-tip="Resume" aria-label="Resume">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6v11.2"/><path d="M7.8 10.6 12 14.8l4.2-4.2"/><path d="M4.6 18.2v1.2A1.2 1.2 0 0 0 5.8 20.6h12.4a1.2 1.2 0 0 0 1.2-1.2v-1.2"/></svg>
+  </a>
+</nav>
+
+<main class="detail" id="detail">
+  <div class="wrap">
+    <a class="back-link" href="index.html#work">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
+      Back to all projects
+    </a>
+
+    <p class="detail-date" id="d-date"></p>
+    <div class="detail-head">
+      <h1 id="d-title"></h1>
+      <div class="tags" id="d-links"></div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-left">
+        <p class="side-label">Skills</p>
+        <div class="tags" id="d-skills"></div>
+        <div class="detail-body" id="d-body"></div>
+      </div>
+      <div class="detail-media" id="d-media"></div>
+    </div>
+
+    <a class="back-link back-bottom" href="index.html#work">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
+      Back to all projects
+    </a>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap"><p>Emily Biaz &middot; 2026</p></div>
+</footer>
+
+<script src="data.js"></script>
+<script src="project.js"></script>
+</body>
+</html>
