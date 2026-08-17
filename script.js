@@ -51,6 +51,43 @@ PROJECTS.forEach((p, i) => {
   grid.appendChild(card);
 });
 
+/* ── the opening ───────────────────────────────────────────
+   A ball of clay appears where the portrait will be, splits, and rolls out
+   moulding each name; the pieces then fire from brown to glazed blue while
+   the portrait develops from a brown-washed grey and the line types itself.
+   Runs once per visit; skipped entirely for reduced motion. */
+
+const lede = document.getElementById('lede');
+const typed = lede && lede.querySelector('.typed');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function typeLine(text, el, start, per) {
+  let i = 0;
+  const tick = () => {
+    el.textContent = text.slice(0, ++i);
+    if (i < text.length) setTimeout(tick, per);
+  };
+  setTimeout(tick, start);
+}
+
+if (lede) {
+  const text = lede.dataset.text;
+  if (reduced) {
+    typed.textContent = text;
+    lede.querySelector('.caret').remove();
+  } else {
+    document.body.classList.add('js-open');
+    document.body.classList.add('js-fire');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.body.classList.add('js-run');
+    }));
+    // starts the instant the first punch lands, finishes as the clay settles
+    // into its final rest, right before the kiln
+    typeLine(text, typed, 0, 3200 / text.length);
+    setTimeout(() => lede.querySelector('.caret').classList.add('done'), 4100);
+  }
+}
+
 /* ── scroll reveal ─────────────────────────────────────── */
 
 const io = new IntersectionObserver(entries => {
@@ -63,3 +100,17 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* the two section titles fire once, when they are scrolled to */
+if (!reduced) {
+  const kiln = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('lit');
+        kiln.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.fire-on-view').forEach(el => kiln.observe(el));
+}

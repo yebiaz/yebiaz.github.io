@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emily Biaz - Designer and Coder</title>
+<title>Emily Biaz</title>
 <meta name="description" content="Emily Biaz, designer and coder. Creative tech that is usable and impactful.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -37,33 +37,70 @@
 
 <!-- ─────────────────────────  hero  ───────────────────────── -->
 <header id="top" class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
-      <p class="hero-role reveal">Designer and coder.</p>
-      <h1 class="name-mark reveal">Emily Biaz</h1>
-      <p class="lede reveal">
-        I strive for creative tech that is usable and impactful.
-        Always learning, always adapting.
-      </p>
+  <div class="wrap">
+    <div class="hero-name">
+      <div class="mark-slot mark-left">
+        <span class="mark-stack">
+          <img class="word-mark stage s1" src="assets/title-emily-s1.png" alt="">
+          <img class="word-mark stage s2" src="assets/title-emily-s2.png" alt="">
+          <img class="word-mark stage s3" src="assets/title-emily-s3.png" alt="">
+          <img class="word-mark stage s4" src="assets/title-emily-s4.png" alt="">
+          <img class="word-mark stage s5" src="assets/title-emily-s5.png" alt="">
+          <img class="word-mark hot" src="assets/title-emily-hot.png" alt="">
+          <img class="word-mark white" src="assets/title-emily-white.png" alt="">
+          <img class="word-mark fired" src="assets/title-emily.png" alt="Emily">
+        </span>
+      </div>
+      <figure class="portrait">
+        <img src="assets/headshot.jpg" alt="Emily Biaz" width="720" height="720">
+      </figure>
+      <div class="mark-slot mark-right">
+        <span class="mark-stack">
+          <img class="word-mark stage s1" src="assets/title-biaz-s1.png" alt="">
+          <img class="word-mark stage s2" src="assets/title-biaz-s2.png" alt="">
+          <img class="word-mark stage s3" src="assets/title-biaz-s3.png" alt="">
+          <img class="word-mark stage s4" src="assets/title-biaz-s4.png" alt="">
+          <img class="word-mark stage s5" src="assets/title-biaz-s5.png" alt="">
+          <img class="word-mark hot" src="assets/title-biaz-hot.png" alt="">
+          <img class="word-mark white" src="assets/title-biaz-white.png" alt="">
+          <img class="word-mark fired" src="assets/title-biaz.png" alt="Biaz">
+        </span>
+      </div>
     </div>
-    <figure class="portrait reveal">
-      <img src="assets/headshot.jpg" alt="Emily Biaz" width="720" height="720">
-    </figure>
+    <p class="lede" id="lede" data-text="I strive for creative tech that is usable and impactful. Always learning, always adapting."><span class="typed"></span><span class="caret" aria-hidden="true"></span></p>
   </div>
 </header>
+
+<div class="wave" aria-hidden="true"></div>
 
 <!-- ─────────────────────────  projects  ───────────────────────── -->
 <main id="work" class="section">
   <div class="wrap">
-    <h2 class="section-title reveal">Projects</h2>
+    <h2 class="section-title fire-on-view">
+      <span class="mark-stack">
+        <img class="clay" src="assets/title-projects-clay.png" alt="">
+        <img class="hot" src="assets/title-projects-hot.png" alt="">
+        <img class="white" src="assets/title-projects-white.png" alt="">
+        <img class="fired" src="assets/title-projects.png" alt="Selected Projects">
+      </span>
+    </h2>
     <div class="grid" id="grid"><!-- cards injected by script.js --></div>
   </div>
 </main>
 
+<div class="wave wave-2" aria-hidden="true"></div>
+
 <!-- ─────────────────────────  about  ───────────────────────── -->
 <section id="about" class="section about">
   <div class="wrap">
-    <h2 class="section-title reveal">About me</h2>
+    <h2 class="section-title fire-on-view">
+      <span class="mark-stack">
+        <img class="clay" src="assets/title-about-clay.png" alt="">
+        <img class="hot" src="assets/title-about-hot.png" alt="">
+        <img class="white" src="assets/title-about-white.png" alt="">
+        <img class="fired" src="assets/title-about.png" alt="About Me">
+      </span>
+    </h2>
     <div class="about-grid">
       <div class="about-main reveal">
         <p>
@@ -74,6 +111,11 @@
           Science, my pendulum has begun to settle, and I have been enjoying projects that
           bring me ever deeper into my intersection.
         </p>
+        <div class="contact">
+          <a href="mailto:emily.biaz@gmail.com" class="tag tag-link">emily.biaz@gmail.com</a>
+          <a href="https://www.linkedin.com/in/emily-biaz-783236280" target="_blank" rel="noopener" class="tag tag-link">LinkedIn</a>
+          <a href="assets/Emily_Biaz_Resume.pdf" target="_blank" rel="noopener" class="tag tag-link">Resume (PDF)</a>
+        </div>
       </div>
       <aside class="about-side reveal">
         <div class="side-block">
@@ -81,8 +123,8 @@
           <p>Singing, pottery, any and all word games</p>
         </div>
         <div class="side-block">
-          <p class="side-label">Currently reading</p>
-          <p><em>The Picture of Dorian Gray</em></p>
+          <p class="side-label">Last read</p>
+          <p><em>Brave New World</em></p>
         </div>
         <div class="side-block">
           <p class="side-label">Available</p>
@@ -92,17 +134,8 @@
       </aside>
     </div>
 
-    <div class="contact reveal">
-      <a href="mailto:emily.biaz@gmail.com" class="tag tag-link">emily.biaz@gmail.com</a>
-      <a href="https://www.linkedin.com/in/emily-biaz-783236280" target="_blank" rel="noopener" class="tag tag-link">LinkedIn</a>
-      <a href="assets/Emily_Biaz_Resume.pdf" target="_blank" rel="noopener" class="tag tag-link">Resume (PDF)</a>
-    </div>
   </div>
 </section>
-
-<footer class="foot">
-  <div class="wrap"><p>Emily Biaz &middot; 2026</p></div>
-</footer>
 
 <script src="data.js"></script>
 <script src="script.js"></script>
