@@ -1,5 +1,9 @@
 """Render the word marks: slate blue letters with a crazed glaze surface.
 
+The hero opens on plain brown clay letters (no moulding animation - that was
+tried and pulled), fires through orange and white, and settles into the glaze.
+The two section titles do the same thing on scroll.
+
 Run:  python render_titles.py
 
 Needs Strenuous_Bl.otf beside this file (or edit FONT below) and Pillow, numpy,
@@ -202,65 +206,16 @@ def pad_to_match(a_path, b_path):
         print(f"padded {path} to {w}px")
 
 
-def sdf(mask):
-    """Signed distance: positive inside the shape, negative outside."""
-    inside = distance_transform_edt(mask > 0.5)
-    outside = distance_transform_edt(mask <= 0.5)
-    return inside - outside
-
-
-def morph_stages(text, stem, stages=5, seed=7):
-    """Five steps from a slab of clay to the finished letters.
-
-    Interpolating the two shapes' distance fields (rather than fading one image
-    into the other) makes the counters open outward the way a punch would push
-    them: the holes appear, deepen, and the letters pull apart.
-    """
-    mask, w, h = letter_mask(text)
-    rows = np.where(mask.max(axis=1) > 0.02)[0]
-    cols = np.where(mask.max(axis=0) > 0.02)[0]
-
-    # the starting slab: the letters' bounding box with generously rounded ends
-    slab = np.zeros((h, w), np.float32)
-    slab[rows[0]:rows[-1] + 1, cols[0]:cols[-1] + 1] = 1
-    r = (rows[-1] - rows[0]) * 0.32
-    slab = np.asarray(
-        Image.fromarray((slab * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(r))
-    ).astype(np.float32) / 255.0
-    slab = (slab > 0.5).astype(np.float32)
-
-    d_slab, d_letters = sdf(slab), sdf(mask)
-
-    rng = np.random.default_rng(seed)
-    wobble = soft(rng.random((h, w)).astype(np.float32), 26) - 0.5
-
-    # A straight linear blend leaves the middle stages looking like the slab and
-    # dumps all the change into the last step. Front-load it so the punches
-    # appear early and the last stages are refinements.
-    schedule = [0.0, 0.62, 0.80, 0.92, 1.0]
-    for i in range(stages):
-        t = schedule[i]
-        d = (1 - t) * d_slab + t * d_letters
-        # the middle stages are hand-punched, so let the edges wander a little
-        d = d + wobble * 13 * max(0.0, 1 - abs(t - 0.62) * 2.6) * (1 - t)
-        stage = np.clip(d * 0.6 + 0.5, 0, 1)
-        stage = np.minimum(stage, 1.0)
-        out = f"{OUT}/{stem}-s{i + 1}.png"
-        shade(stage, w, h, out, seed=seed, mode='clay')
-
-
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     render("EMILY", f"{OUT}/title-emily.png", seed=3)
     render("BIAZ", f"{OUT}/title-biaz.png", seed=8)
     pad_to_match(f"{OUT}/title-emily.png", f"{OUT}/title-biaz.png")
 
-    # the unfired versions, used by the opening animation
-    # the five moulding stages, slab to letters
-    morph_stages("EMILY", "title-emily", seed=3)
-    morph_stages("BIAZ", "title-biaz", seed=8)
-    for i in range(1, 6):
-        pad_to_match(f"{OUT}/title-emily-s{i}.png", f"{OUT}/title-biaz-s{i}.png")
+    # a plain clay (brown, unfired) version, used as the hero's resting state
+    render("EMILY", f"{OUT}/title-emily-clay.png", seed=3, mode="clay")
+    render("BIAZ", f"{OUT}/title-biaz-clay.png", seed=8, mode="clay")
+    pad_to_match(f"{OUT}/title-emily-clay.png", f"{OUT}/title-biaz-clay.png")
 
     # glowing, the moment they come out of the kiln
     render("EMILY", f"{OUT}/title-emily-hot.png", seed=3, mode="hot")
