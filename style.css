@@ -150,12 +150,12 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 .mark-right{justify-content:flex-start}
 .mark-stack{position:relative; display:block; min-width:0; line-height:0}
 /* the first stage holds the box open; everything else stacks on top of it */
-.mark-stack .stage:not(.s1),.mark-stack .hot,.mark-stack .white,.mark-stack .fired{
+.mark-stack .hot,.mark-stack .white,.mark-stack .fired{
   position:absolute; inset:0; width:100%; height:100%;
 }
 
 /* resting state, once the opening has run */
-.hero-name .stage,.hero-name .hot,.hero-name .white{opacity:0}
+.hero-name .clay,.hero-name .hot,.hero-name .white{opacity:0}
 .hero-name .fired{opacity:1}
 
 /* the typed line */
@@ -166,45 +166,20 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 }
 
 /* ── the run ────────────────────────────────────────────── */
-.js-open .hero-name .s1{opacity:1}
+.js-open .hero-name .clay{opacity:1}
 .js-open .hero-name .fired{opacity:0}
 .js-open .lede .caret{opacity:1; animation:blink .9s steps(1,end) infinite}
 
-/* Moulding is a stepper: pose 1 to pose 2, a real hold, pose 2 to pose 3, a
-   hold, and so on. Each stage needs its OWN fade-out timed to the moment the
-   next one fades in - without that, the always-opaque base slab (s1) simply
-   fills every dent from underneath the whole time, and every transition
-   before the very last one is invisible. Two animations per element, on
-   non-overlapping windows, so nothing ever crossfades against itself. */
-.js-run .hero-name .s1{animation:step-out 450ms    0ms ease-in-out forwards}
-.js-run .hero-name .s2{
-  animation:
-    step     450ms    0ms ease-in-out forwards,
-    step-out 450ms  830ms ease-in-out forwards;
-}
-.js-run .hero-name .s3{
-  animation:
-    step     450ms  830ms ease-in-out forwards,
-    step-out 450ms 1660ms ease-in-out forwards;
-}
-.js-run .hero-name .s4{
-  animation:
-    step     450ms 1660ms ease-in-out forwards,
-    step-out 450ms 2490ms ease-in-out forwards;
-}
-/* the true letterform: fades in once and stays - "fired" will land on it with
-   the identical silhouette later, so it never needs to fade out itself */
-.js-run .hero-name .s5{animation:step 450ms 2490ms ease-in-out forwards}
-
-/* a beat to see the finished clay letters, then the kiln: quick, smooth,
-   each colour only fades in and stays, so the next one landing on it is a
-   plain crossfade with nothing to read as a stutter */
-.js-run .hero-name .hot{animation:settle 320ms 3300ms ease-out forwards}
-.js-run .hero-name .white{animation:settle 440ms 3500ms ease-in-out forwards}
-.js-run .hero-name .fired{animation:settle 340ms 3780ms ease-in-out forwards}
+/* The clay is already fully formed letters on load - just brown, no moulding.
+   The kiln timing is set so the last colour settles into the glaze exactly
+   when the typed line below finishes (2400ms at the current typing speed):
+   a longer beat on brown while the sentence is still being typed, then a
+   quick, smooth fire so both land together. */
+.js-run .hero-name .hot{animation:settle 320ms 1580ms ease-out forwards}
+.js-run .hero-name .white{animation:settle 440ms 1780ms ease-in-out forwards}
+.js-run .hero-name .fired{animation:settle 340ms 2060ms ease-in-out forwards}
 
 @keyframes step{from{opacity:0} to{opacity:1}}
-@keyframes step-out{from{opacity:1} to{opacity:0}}
 
 /* Brown to orange is the one abrupt beat, the flash. Everything after it is a
    smooth cross-fade: orange to white, white to glaze. */
@@ -537,7 +512,6 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
 
 .detail-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:clamp(2rem,5vw,4.5rem); align-items:start}
 .detail-left{}
-.detail-left .side-label{margin:0 0 .7rem}
 .detail-body{margin-top:2.2rem}
 .detail-body p{margin:0 0 1.2rem; color:var(--coffee); max-width:58ch}
 .detail-body p strong{color:var(--coffee-pale); font-weight:400}
