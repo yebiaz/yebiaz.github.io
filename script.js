@@ -81,10 +81,9 @@ if (lede) {
     requestAnimationFrame(() => requestAnimationFrame(() => {
       document.body.classList.add('js-run');
     }));
-    // starts the instant the first punch lands, finishes as the clay settles
-    // into its final rest, right before the kiln
-    typeLine(text, typed, 0, 3200 / text.length);
-    setTimeout(() => lede.querySelector('.caret').classList.add('done'), 4100);
+    // starts the instant the clay letters appear, at a comfortable reading pace
+    typeLine(text, typed, 0, 2400 / text.length);
+    setTimeout(() => lede.querySelector('.caret').classList.add('done'), 2700);
   }
 }
 
