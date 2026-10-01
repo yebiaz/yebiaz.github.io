@@ -1,8 +1,10 @@
 """Render the word marks: slate blue letters with a crazed glaze surface.
 
 The hero opens on plain brown clay letters (no moulding animation - that was
-tried and pulled), fires through orange and white, and settles into the glaze.
-The two section titles do the same thing on scroll.
+tried and pulled), rests on white, and settles into the glaze. The two
+section titles do the same thing on scroll. (An earlier version fired
+through an orange "straight out of the kiln" stage between clay and white -
+that stage was cut because the orange didn't read well on the site.)
 
 Run:  python render_titles.py
 
@@ -111,13 +113,7 @@ CLAY_LIT = np.array([168, 124, 88])
 CLAY_MID = np.array([126, 88, 60])
 CLAY_DEEP = np.array([74, 48, 31])
 
-# straight out of the kiln, still glowing
-HOT_LIT = np.array([255, 196, 112])
-HOT_MID = np.array([240, 146, 58])
-HOT_DEEP = np.array([168, 78, 22])
-HOT_CRACKLE = np.array([255, 232, 190])
-
-# the moment between the glow and the glaze, burnt out to near white
+# the moment between the clay and the glaze, bleached out to near white
 WHITE_LIT = np.array([255, 253, 248])
 WHITE_MID = np.array([243, 238, 230])
 WHITE_DEEP = np.array([201, 195, 186])
@@ -142,7 +138,6 @@ def shade(mask, w, h, out_path, seed=7, mode='fired'):
     palettes = {
         'fired': (BLUE_LIT, BLUE_MID, BLUE_DEEP, CRACKLE),
         'clay':  (CLAY_LIT, CLAY_MID, CLAY_DEEP, CRACKLE),
-        'hot':   (HOT_LIT, HOT_MID, HOT_DEEP, HOT_CRACKLE),
         'white': (WHITE_LIT, WHITE_MID, WHITE_DEEP, WHITE_CRACKLE),
     }
     lit, mid, deep, crackle_col = palettes[mode]
@@ -156,8 +151,8 @@ def shade(mask, w, h, out_path, seed=7, mode='fired'):
     rgb += mottle[..., None] * 20
 
     # ── the crazing (fired pieces only; wet clay has none) ──
-    lines = np.zeros((h, w), np.float32) if mode in ('clay', 'hot') else crackle_map(w, h, seed)
-    rgb += lines[..., None] * (crackle_col - mid)[None, None, :] * (0.62 if mode == 'hot' else 0.42)
+    lines = np.zeros((h, w), np.float32) if mode == 'clay' else crackle_map(w, h, seed)
+    rgb += lines[..., None] * (crackle_col - mid)[None, None, :] * 0.42
     # a hair of shadow on one side of each line gives them depth
     rgb -= soft(np.clip(np.roll(lines, 1, axis=0) - lines, 0, 1), 0.6)[..., None] * 10
 
@@ -217,16 +212,11 @@ if __name__ == "__main__":
     render("BIAZ", f"{OUT}/title-biaz-clay.png", seed=8, mode="clay")
     pad_to_match(f"{OUT}/title-emily-clay.png", f"{OUT}/title-biaz-clay.png")
 
-    # glowing, the moment they come out of the kiln
-    render("EMILY", f"{OUT}/title-emily-hot.png", seed=3, mode="hot")
-    render("BIAZ", f"{OUT}/title-biaz-hot.png", seed=8, mode="hot")
-    pad_to_match(f"{OUT}/title-emily-hot.png", f"{OUT}/title-biaz-hot.png")
-
     render("EMILY", f"{OUT}/title-emily-white.png", seed=3, mode="white")
     render("BIAZ", f"{OUT}/title-biaz-white.png", seed=8, mode="white")
     pad_to_match(f"{OUT}/title-emily-white.png", f"{OUT}/title-biaz-white.png")
 
-    # the section titles fire on scroll, so they need the same four stages
+    # the section titles fire on scroll, so they need the same three stages
     for label, stem, seed in (("Selected Projects", "projects", 15), ("About Me", "about", 21)):
-        for mode, suffix in (("clay", "-clay"), ("hot", "-hot"), ("white", "-white"), ("fired", "")):
+        for mode, suffix in (("clay", "-clay"), ("white", "-white"), ("fired", "")):
             render(label, f"{OUT}/title-{stem}{suffix}.png", seed=seed, mode=mode)

@@ -7,7 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,6 +21,9 @@
   </a>
   <a href="index.html#about" class="dock-btn" data-tip="About" aria-label="About">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M4.8 20c0-3.6 3.2-5.8 7.2-5.8s7.2 2.2 7.2 5.8"/></svg>
+  </a>
+  <a href="mailto:emily.biaz@gmail.com" class="dock-btn" data-tip="Contact" aria-label="Contact">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.4" y="5.6" width="17.2" height="12.8" rx="1.6"/><path d="M4 6.6l8 6.2 8-6.2"/></svg>
   </a>
   <span class="dock-rule" aria-hidden="true"></span>
   <a href="https://www.linkedin.com/in/emily-biaz-783236280" target="_blank" rel="noopener"
@@ -37,13 +40,13 @@
   <div class="wrap">
     <a class="back-link" href="index.html#work">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
-      Back to all projects
+      All Projects
     </a>
 
-    <p class="detail-date" id="d-date"></p>
     <div class="detail-head">
       <h1 id="d-title"></h1>
       <div class="tags" id="d-links"></div>
+      <p class="detail-subtitle" id="d-subtitle"></p>
     </div>
 
     <div class="detail-grid">
@@ -54,10 +57,10 @@
       <div class="detail-media" id="d-media"></div>
     </div>
 
-    <a class="back-link back-bottom" href="index.html#work">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
-      Back to all projects
-    </a>
+    <section class="more-projects reveal" id="more-projects">
+      <p class="more-label">More Projects</p>
+      <div class="more-grid" id="more-grid"><!-- injected by project.js --></div>
+    </section>
   </div>
 </main>
 

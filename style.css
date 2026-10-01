@@ -1,41 +1,27 @@
 /* ═══════════════════════════════════════════════════════════
    Emily Biaz, portfolio
-   Palette: dark brown ground, beige paper, two coffee tones (C2 and C5 from
-   the brew chart) and the two blues taken out of the glazed letters.
-   Type: Archivo Black for the headline titles (filled with generated wood
-   grain), Georgia for reading, IBM Plex Mono for labels and tags.
+   Palette: cream + blue, nothing else. Cream carries everything
+   interactive (body text, tags, buttons, borders, nav); blue is reserved
+   for heading-type text (section labels, subtitles, secondary titles) and
+   the fired word marks. (Ground is tonal shades of dark brown for page
+   depth/layering, not a colour choice someone reads as "brown" on the page.)
+   Type: Strenuous (rendered as images) for the three big titles, Outfit for
+   everything else. Text groups are told apart by size and weight, not by
+   switching typefaces.
    ═══════════════════════════════════════════════════════════ */
 
-/* ── Everything, for labels, tags, dates and captions ──────
-   The font only draws A-Z and a-z: every digit and punctuation mark is in its
-   cmap but has an empty outline, so they would render as blank space rather
-   than falling back. unicode-range fixes that without touching the font file:
-   the browser only reaches for Everything on letters and uses the fallback for
-   digits and punctuation. */
-@font-face{
-  font-family:'Everything';
-  src:url('assets/Everything.otf') format('opentype');
-  font-weight:400;
-  font-display:swap;
-  unicode-range:U+0041-005A, U+0061-007A;
-}
-
 :root{
-  --ground:#1A1410;        /* very dark brown, the page ground */
+  --ground:#1A1410;        /* page background, dark brown */
   --ground-2:#221A14;      /* raised surface */
   --ground-3:#2C2219;      /* card face */
-  --paper:#EDE5D3;         /* beige, main text */
-  --paper-dim:#B3A892;     /* secondary text */
-  --paper-faint:#7C7263;   /* labels, rules */
-  --coffee:#DBC1AC;        /* body text, dates, captions, highlights */
-  --coffee-pale:#ECE0D1;   /* the lighter one, where contrast needs help */
-  --coffee-deep:#967259;   /* repo tags, skill boxes, the ring round the portrait */
-  --glaze:#9CBEDC;         /* light blue, project titles */
-  --glaze-deep:#2C4864;    /* dark blue */
-  --line:rgba(237,229,211,.16);
 
-  --serif:Georgia,'Iowan Old Style','Times New Roman',serif;
-  --mono:'Everything','Outfit',system-ui,sans-serif;   /* labels, tags, dates, captions */
+  --cream:#DBC1AC;         /* body text, tags, buttons, borders, nav - the interactive colour */
+  --blue:#9CBEDC;          /* heading-type text only: section labels, subtitles, fired word marks */
+  --brown:#967259;         /* unused in UI now; kept only for the card photo-wash tint below */
+
+  --line:rgba(219,193,172,.16);
+
+  --font:'Outfit',system-ui,sans-serif;  /* the only font besides the image titles */
 
   --wrap:1180px;
   --ease:cubic-bezier(.22,.61,.36,1);
@@ -48,8 +34,9 @@ html{scroll-behavior:smooth;scroll-padding-top:96px}
 body{
   margin:0;
   background:var(--ground);
-  color:var(--paper);
-  font-family:var(--serif);
+  color:var(--cream);
+  font-family:var(--font);
+  font-weight:400;
   font-size:18px;
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
@@ -71,18 +58,19 @@ body::before{
 body::after{
   content:"";
   position:fixed; inset:0; z-index:0; pointer-events:none;
-  background:radial-gradient(120% 70% at 50% -10%, rgba(219,193,172,.06), transparent 60%);
+  background:radial-gradient(120% 70% at 50% -10%, rgba(156,190,220,.07), transparent 60%);
 }
 .wrap{position:relative; z-index:1; width:min(var(--wrap),100% - 3rem); margin-inline:auto}
 
 /* ── shared bits ───────────────────────────────────────── */
 
-.eyebrow,.side-label,.modal-date,.section-title span{
-  font-family:var(--mono);
+.eyebrow,.side-label,.section-title span{
+  font-family:var(--font);
+  font-weight:600;
   font-size:.78rem;
   letter-spacing:.2em;
   text-transform:uppercase;
-  color:var(--coffee);
+  color:var(--blue);
 }
 
 h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
@@ -97,19 +85,79 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 .tags{display:flex; flex-wrap:wrap; gap:.5rem}
 
 .tag{
-  font-family:var(--mono);
+  font-family:var(--font);
+  font-weight:500;
   font-size:.8rem;
   letter-spacing:.05em;
   padding:.4rem .8rem;
-  border:1px solid rgba(150,114,89,.6);
-  background:rgba(219,193,172,.13);
-  color:var(--coffee-deep);
+  border:1px solid rgba(219,193,172,.4);
+  background:rgba(219,193,172,.1);
+  color:var(--cream);
   border-radius:6px;
   white-space:nowrap;
 }
+
+/* ── button system ────────────────────────────────────────
+   Primary = filled: the one thing you want someone to do first.
+   Secondary = outline at rest, fills on hover: a supporting action.
+   Which role a given link plays changes by context (see HTML), the visual
+   treatment itself never does. */
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family:var(--font); font-weight:600;
+  font-size:.82rem; letter-spacing:.06em;
+  padding:.75rem 1.5rem;
+  border-radius:999px;
+  border:1px solid transparent;
+  text-decoration:none; cursor:pointer;
+  transition:.25s var(--ease);
+}
+.btn-primary{background:var(--cream); color:var(--ground); border-color:var(--cream)}
+.btn-primary:hover{background:transparent; border-color:var(--cream); color:var(--cream)}
+.btn-secondary{background:transparent; color:var(--cream); border-color:var(--cream)}
+.btn-secondary:hover{background:var(--cream); border-color:var(--cream); color:var(--ground)}
+
+/* small pill links reuse the same two roles at tag size */
 .tag-link{text-decoration:none; transition:.25s var(--ease);
-  background:none; border-color:rgba(219,193,172,.45); color:var(--coffee)}
-.tag-link:hover{border-color:var(--coffee); color:var(--coffee)}
+  background:none; border-color:rgba(219,193,172,.45); color:var(--cream)}
+.tag-link:hover{border-color:var(--cream); color:var(--cream)}
+
+/* "Learn more" is the primary action on a project card: filled, always. */
+.tag-more{
+  border:1px solid var(--cream); color:var(--ground); background:var(--cream);
+  display:inline-flex; align-items:center; gap:.4rem;
+  text-decoration:none; position:relative; z-index:2;
+  font-weight:600;
+}
+.tag-more svg{width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:transform .3s var(--ease)}
+.tag-more:hover{background:transparent; border-color:var(--cream); color:var(--cream)}
+.tag-more:hover svg{transform:translateX(3px)}
+
+/* The repo tag is a live link: it opens the repo, not the project page.
+   Secondary by default (outline, fills on hover) - on a project detail page
+   it's the main action instead, so project.js adds .primary there. */
+a.tag-repo{
+  border:1px solid var(--cream); color:var(--cream); background:none; text-decoration:none;
+  position:relative; z-index:2;
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-family:var(--font); font-weight:500; font-size:.8rem; letter-spacing:.05em;
+  padding:.4rem .8rem; border-radius:6px; white-space:nowrap;
+  transition:.25s var(--ease);
+}
+a.tag-repo svg{
+  width:12px; height:12px; flex:none;
+  fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+  transition:transform .3s var(--ease);
+}
+a.tag-repo:hover svg{transform:translateX(3px)}
+a.tag-repo:hover{background:var(--cream); color:var(--ground); border-color:var(--cream)}
+
+/* on a project detail page the repo link is the primary action: same look
+   as .tag-more, filled from the start */
+a.tag-repo.primary{background:var(--cream); color:var(--ground); border-color:var(--cream)}
+a.tag-repo.primary:hover{background:transparent; color:var(--cream); border-color:var(--cream)}
+
+.modal-text .note{font-size:.92rem; color:var(--cream); opacity:.7; font-style:italic}
 
 
 /* ── word marks ──────────────────────────────────────────
@@ -140,29 +188,28 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 }
 
 /* ── the opening ───────────────────────────────────────────
-   Two slabs of clay are already in place. They are punched into letters over
-   five stages, then fired: a flash to orange, a rest on white, and a settle
-   into the glaze. Each stage is its own render, cross-faded into the next, so
-   the counters open the way a punch would push them. */
+   Two slabs of clay are already in place, brown. They fire in two simple
+   steps: a rest on white, then a settle into the blue glaze. Each stage is
+   its own render, cross-faded into the next. */
 .hero-name{position:relative}
 .mark-slot{display:flex; min-width:0}
 .mark-left{justify-content:flex-end}
 .mark-right{justify-content:flex-start}
 .mark-stack{position:relative; display:block; min-width:0; line-height:0}
 /* the first stage holds the box open; everything else stacks on top of it */
-.mark-stack .hot,.mark-stack .white,.mark-stack .fired{
+.mark-stack .white,.mark-stack .fired{
   position:absolute; inset:0; width:100%; height:100%;
 }
 
 /* resting state, once the opening has run */
-.hero-name .clay,.hero-name .hot,.hero-name .white{opacity:0}
+.hero-name .clay,.hero-name .white{opacity:0}
 .hero-name .fired{opacity:1}
 
 /* the typed line */
 .hero .lede .caret.done{display:none}
 .hero .lede .caret{
   display:inline-block; width:2px; height:1.05em; margin-left:.12em;
-  background:var(--coffee); vertical-align:-.16em; opacity:0;
+  background:var(--cream); vertical-align:-.16em; opacity:0;
 }
 
 /* ── the run ────────────────────────────────────────────── */
@@ -171,18 +218,11 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 .js-open .lede .caret{opacity:1; animation:blink .9s steps(1,end) infinite}
 
 /* The clay is already fully formed letters on load - just brown, no moulding.
-   The kiln timing is set so the last colour settles into the glaze exactly
-   when the typed line below finishes (2400ms at the current typing speed):
-   a longer beat on brown while the sentence is still being typed, then a
-   quick, smooth fire so both land together. */
-.js-run .hero-name .hot{animation:settle 320ms 1580ms ease-out forwards}
-.js-run .hero-name .white{animation:settle 440ms 1780ms ease-in-out forwards}
-.js-run .hero-name .fired{animation:settle 340ms 2060ms ease-in-out forwards}
+   The kiln waits a short beat (500ms) after the page opens, then fires
+   through the same two stages as before. */
+.js-run .hero-name .white{animation:settle 420ms 500ms ease-in-out forwards}
+.js-run .hero-name .fired{animation:settle 360ms 920ms ease-in-out forwards}
 
-@keyframes step{from{opacity:0} to{opacity:1}}
-
-/* Brown to orange is the one abrupt beat, the flash. Everything after it is a
-   smooth cross-fade: orange to white, white to glaze. */
 @keyframes settle{
   0%   {opacity:0}
   100% {opacity:1}
@@ -199,16 +239,14 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 .section-title{margin-bottom:2.6rem}
 /* the two section titles fire the same way, once they are scrolled to */
 .fire-on-view .mark-stack{display:inline-block}
-.fire-on-view .hot,.fire-on-view .white{opacity:0}
+.fire-on-view .white{opacity:0}
 .js-fire .fire-on-view .clay{opacity:1}
 .js-fire .fire-on-view .fired{opacity:0}
-/* the clay needs no fade-out of its own: hot/white/fired share its exact
-   silhouette (this is a single letterform, not the hero's wide slab), so
-   whichever one is opaque simply covers it. A short pause holds the brown on
-   screen before the kiln starts, then the same overlapping crossfade. */
-.fire-on-view.lit .hot{animation:settle 280ms 450ms ease-out forwards}
-.fire-on-view.lit .white{animation:settle 380ms 620ms ease-in-out forwards}
-.fire-on-view.lit .fired{animation:settle 280ms 850ms ease-in-out forwards}
+/* the clay needs no fade-out of its own: white/fired share its exact
+   silhouette, so whichever one is opaque simply covers it. A short pause
+   holds the brown on screen before the kiln starts, then the crossfade. */
+.fire-on-view.lit .white{animation:settle 380ms 480ms ease-in-out forwards}
+.fire-on-view.lit .fired{animation:settle 320ms 760ms ease-in-out forwards}
 
 /* the same size as EMILY / BIAZ in the hero, but never wider than the screen:
    max-width and max-height together let the browser shrink by whichever is
@@ -226,10 +264,10 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 #work .section-title .mark-stack{margin-inline:auto}
 
 
-/* ── section divider: a dark blue line with a light blue one mirroring it ── */
+/* ── section divider: cream and blue, nothing else ───────── */
 .wave{
   height:88px;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%2788%27%20viewBox%3D%270%200%201200%2088%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%2044%20C%20120%2028%2C%20220%2062%2C%20360%2046%20S%20560%2024%2C%20700%2042%20S%20900%2064%2C%201040%2048%20S%201140%2032%2C%201200%2044%27%20fill%3D%27none%27%20stroke%3D%27%23967259%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%2F%3E%3Cpath%20d%3D%27M0%2044%20C%20120%2028%2C%20220%2062%2C%20360%2046%20S%20560%2024%2C%20700%2042%20S%20900%2064%2C%201040%2048%20S%201140%2032%2C%201200%2044%27%20fill%3D%27none%27%20stroke%3D%27%23DBC1AC%27%20stroke-width%3D%272.6%27%20stroke-linecap%3D%27round%27%20transform%3D%27translate%280%2C11%29%27%2F%3E%3C%2Fsvg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%2788%27%20viewBox%3D%270%200%201200%2088%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%2044%20C%20120%2028%2C%20220%2062%2C%20360%2046%20S%20560%2024%2C%20700%2042%20S%20900%2064%2C%201040%2048%20S%201140%2032%2C%201200%2044%27%20fill%3D%27none%27%20stroke%3D%27%23DBC1AC%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%2F%3E%3Cpath%20d%3D%27M0%2044%20C%20120%2028%2C%20220%2062%2C%20360%2046%20S%20560%2024%2C%20700%2042%20S%20900%2064%2C%201040%2048%20S%201140%2032%2C%201200%2044%27%20fill%3D%27none%27%20stroke%3D%27%239CBEDC%27%20stroke-width%3D%272.6%27%20stroke-linecap%3D%27round%27%20transform%3D%27translate%280%2C11%29%27%2F%3E%3C%2Fsvg%3E");
   background-repeat:no-repeat;
   background-size:100% 88px;
   background-position:center;
@@ -246,26 +284,26 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
   padding:.4rem;
   background:rgba(26,20,16,.82);
   backdrop-filter:blur(14px);
-  border:1px solid var(--coffee-deep);
+  border:1px solid rgba(219,193,172,.4);
   border-radius:999px;
 }
-.dock-rule{width:1px; height:20px; background:var(--coffee-deep); margin:0 .3rem}
+.dock-rule{width:1px; height:20px; background:rgba(219,193,172,.4); margin:0 .3rem}
 .dock-btn{
   position:relative;
   display:grid; place-items:center;
   width:40px; height:40px;
   border-radius:999px;
-  color:var(--paper-dim);
+  color:var(--cream); opacity:.72;
   transition:.25s var(--ease);
 }
 .dock-btn svg{width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
-.dock-btn:hover{background:var(--coffee); color:var(--ground)}
+.dock-btn:hover{background:var(--cream); color:var(--ground); opacity:1}
 .dock-btn::after{
   content:attr(data-tip);
   position:absolute; top:calc(100% + .5rem); left:50%; transform:translateX(-50%);
-  font-family:var(--mono); font-size:.63rem; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--coffee); background:rgba(26,20,16,.94);
-  border:1px solid var(--coffee-deep); border-radius:3px;
+  font-family:var(--font); font-weight:600; font-size:.63rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--cream); background:rgba(26,20,16,.94);
+  border:1px solid rgba(219,193,172,.4); border-radius:3px;
   padding:.22rem .5rem; white-space:nowrap;
   opacity:0; pointer-events:none; transition:opacity .2s;
 }
@@ -281,17 +319,23 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
   position:relative; z-index:1;
 }
 
-
-
 .hero .lede{
-  font-family:var(--serif);
-  font-size:clamp(1.3rem,2.2vw,1.75rem);
+  font-family:var(--font);
+  font-weight:400;
+  font-size:clamp(1.15rem,2vw,1.5rem);
   line-height:1.65;
-  color:var(--coffee);
+  color:var(--cream);
   max-width:48ch;
   margin:clamp(2rem,4vw,3.2rem) auto 0;
   text-align:center;
 }
+
+.hero-cta{display:flex; justify-content:center; margin-top:2rem}
+/* the homepage's "Get in Touch" is the one place that's blue rather than
+   cream - it's the single call-to-action on the page, so it gets the accent
+   normally reserved for headings. */
+.hero-cta .btn-primary{background:var(--blue); color:var(--ground); border-color:var(--blue)}
+.hero-cta .btn-primary:hover{background:transparent; color:var(--blue); border-color:var(--blue)}
 
 .portrait{margin:0; position:relative; width:fit-content}
 .portrait img{
@@ -300,7 +344,7 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
   height:clamp(150px,17.5vw,272px);
   object-fit:cover;
   border-radius:50%;
-  border:7px solid var(--coffee-deep);
+  border:7px solid var(--cream);
 }
 
 
@@ -324,7 +368,20 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
   transition:border-color .35s var(--ease), transform .35s var(--ease);
 }
 .card:hover,.card:focus-within{border-color:rgba(219,193,172,.55); transform:translateY(-4px)}
-.card :focus-visible{outline:2px solid var(--coffee); outline-offset:3px}
+.card :focus-visible{outline:2px solid var(--cream); outline-offset:3px}
+/* the Claude Code card is a mention, not a page to browse to - no pointer,
+   no hover-lift implying it goes somewhere */
+.card-static{cursor:default}
+.card-static:hover,.card-static:focus-within{transform:none}
+
+/* Claude Code: no thumbnail, just a small centered title + subtitle rectangle */
+.card-text-only.card-solo{width:100%; max-width:380px}
+.card-text-only .card-body{
+  padding:2.1rem 1.8rem;
+  align-items:center;
+  text-align:center;
+  gap:.5rem;
+}
 
 .card-media{
   position:relative; z-index:1;
@@ -360,49 +417,23 @@ h1,h2,h3{font-weight:400; letter-spacing:-.02em; margin:0}
 .card:hover .card-media::before,
 .card.is-lit .card-media::before{opacity:0}
 
-.card-body{position:relative; z-index:1; padding:1.4rem 1.5rem 1.5rem; display:flex; flex-direction:column; gap:.9rem; flex:1}
-.card-date{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--coffee); margin:0}
-.card-title{font-size:1.45rem; line-height:1.2; color:var(--glaze)}
-.card-tags .tag{background:none}
-.card-tags{margin-top:auto; padding-top:.4rem; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center}
-
-.tag-more{
-  border-color:rgba(219,193,172,.55); color:var(--coffee);
-  display:inline-flex; align-items:center; gap:.4rem;
-  text-decoration:none; position:relative; z-index:2;
-}
-.tag-more svg{width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:transform .3s var(--ease)}
-.card:hover .tag-more{background:var(--coffee); color:var(--ground); border-color:var(--coffee)}
-.card:hover .tag-more svg{transform:translateX(3px)}
-
-/* the repo tag is a live link: it opens the repo, not the project pop-up */
-a.tag-repo{
-  border-color:rgba(150,114,89,.65); color:var(--coffee-deep); text-decoration:none;
-  position:relative; z-index:2;
-  display:inline-flex; align-items:center; gap:.4rem;
-}
-a.tag-repo svg{
-  width:12px; height:12px; flex:none;
-  fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
-  transition:transform .3s var(--ease);
-}
-a.tag-repo:hover svg{transform:translateX(3px)}
-.card:hover a.tag-repo{border-color:var(--coffee-deep)}
-a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-color:var(--coffee-deep)}
+.card-body{position:relative; z-index:1; padding:1.4rem 1.5rem 1.5rem; display:flex; flex-direction:column; gap:.6rem; flex:1}
+.card-headline{font-size:1.4rem; font-weight:600; line-height:1.25; color:var(--cream); margin:0}
+.card-title{font-size:.82rem; font-weight:500; letter-spacing:.03em; line-height:1.3; color:var(--blue); margin:0}
+.card-tags{margin-top:auto; padding-top:.8rem; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center}
 
 /* a lone card on the last row sits centred rather than stranded left */
 
-.modal-text .note{font-size:.92rem; color:var(--paper-faint); font-style:italic}
 
 /* ── about ─────────────────────────────────────────────── */
 
 .about{padding-bottom:clamp(6rem,12vw,10rem)}
 .about-grid{display:grid; grid-template-columns:1.6fr 1fr; gap:4rem; align-items:stretch}
 .about-main{display:flex; flex-direction:column}
-.about-main p{margin:0 0 1.3rem; max-width:56ch; color:var(--coffee)}
-.about-main strong{color:var(--coffee); font-weight:400}
+.about-main p{margin:0 0 1.3rem; max-width:56ch; color:var(--cream)}
+.about-main strong{color:var(--cream); font-weight:600}
 .about-side{display:flex; flex-direction:column; justify-content:space-between; gap:1.7rem}
-.side-block p:not(.side-label){margin:.4rem 0 0; color:var(--coffee); font-size:.98rem; line-height:1.5}
+.side-block p:not(.side-label){margin:.4rem 0 0; color:var(--cream); font-size:.98rem; line-height:1.5}
 .side-label{margin:0}
 /* pushed down so the row of links ends level with the Available box */
 .contact{display:flex; flex-wrap:wrap; align-items:flex-end; gap:.6rem; margin-top:auto; padding-top:2.5rem}
@@ -430,10 +461,10 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
   position:absolute; top:1rem; right:1rem; z-index:3;
   width:38px; height:38px; display:grid; place-items:center;
   background:rgba(26,20,16,.85); border:1px solid var(--line); border-radius:999px;
-  color:var(--paper); cursor:pointer; transition:.25s var(--ease);
+  color:var(--cream); cursor:pointer; transition:.25s var(--ease);
 }
 .modal-close svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round}
-.modal-close:hover{background:var(--coffee); color:var(--ground)}
+.modal-close:hover{background:var(--cream); color:var(--ground)}
 
 .gallery{position:relative; background:var(--ground-3); border-bottom:1px solid var(--line)}
 .gallery-stage{
@@ -448,7 +479,7 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
 .gal-figure{margin:0; position:relative; display:inline-block; max-width:100%}
 .gal-caption{
   position:absolute; right:.75rem; bottom:.75rem;
-  font-family:var(--mono); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase;
+  font-family:var(--font); font-weight:600; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase;
   color:var(--ground);
   background:rgba(219,193,172,.88);
   padding:.3rem .6rem; border-radius:2px;
@@ -459,22 +490,22 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
   position:absolute; top:50%; transform:translateY(-50%);
   width:42px; height:42px; display:grid; place-items:center;
   background:rgba(26,20,16,.8); border:1px solid var(--line); border-radius:999px;
-  color:var(--paper); cursor:pointer; transition:.25s var(--ease);
+  color:var(--cream); cursor:pointer; transition:.25s var(--ease);
 }
 .gal-arrow svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
-.gal-arrow:hover{background:var(--coffee); color:var(--ground)}
+.gal-arrow:hover{background:var(--cream); color:var(--ground)}
 .gal-arrow.prev{left:1rem}
 .gal-arrow.next{right:1rem}
 .gal-arrow[hidden]{display:none}
 
 .dots{position:absolute; bottom:.9rem; left:50%; transform:translateX(-50%); display:flex; gap:.45rem}
-.dot{width:7px; height:7px; border-radius:999px; background:rgba(237,229,211,.3); border:0; padding:0; cursor:pointer; transition:.25s var(--ease)}
-.dot.on{background:var(--coffee); width:18px}
+.dot{width:7px; height:7px; border-radius:999px; background:rgba(219,193,172,.3); border:0; padding:0; cursor:pointer; transition:.25s var(--ease)}
+.dot.on{background:var(--cream); width:18px}
 
 .modal-body{padding:2rem clamp(1.5rem,4vw,2.75rem) 2.5rem}
 .modal-body h3{font-size:clamp(1.6rem,3.5vw,2.2rem); margin:.4rem 0 1.4rem}
-.modal-text p{margin:0 0 1.2rem; color:var(--paper-dim); max-width:68ch}
-.modal-text p strong{color:var(--paper); font-weight:400}
+.modal-text p{margin:0 0 1.2rem; color:var(--cream); opacity:.85; max-width:68ch}
+.modal-text p strong{color:var(--cream); opacity:1; font-weight:600}
 .modal-body .side-label{margin:2rem 0 .7rem}
 #modal-links{margin-top:1.2rem}
 
@@ -485,37 +516,38 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
 
 .back-link{
   display:inline-flex; align-items:center; gap:.55rem;
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--coffee-deep); text-decoration:none;
-  border:1px solid var(--coffee-deep); border-radius:2px;
+  font-family:var(--font); font-weight:600; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--cream); text-decoration:none;
+  border:1px solid var(--cream); border-radius:2px;
   padding:.55rem 1rem;
   transition:.25s var(--ease);
 }
 .back-link svg{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
-.back-link:hover{border-color:var(--coffee); color:var(--coffee)}
-.back-bottom{margin-top:4rem}
+.back-link:hover{background:var(--cream); color:var(--ground)}
 
-.detail-date{
-  font-family:var(--mono); font-size:.85rem; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--coffee); margin:3rem 0 .6rem;
-}
-
-/* title and repo link share a line, the link sitting just after the title */
+/* title and repo link share a line, the link sitting just after the title;
+   the literal project name runs full-width underneath both */
 .detail-head{
-  display:flex; flex-wrap:wrap; align-items:baseline; gap:1rem 1.2rem;
-  margin-bottom:2.6rem;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:.7rem 1.1rem;
+  margin:3rem 0 2.6rem;
 }
 .detail-head h1{
-  font-size:clamp(1.7rem,3.8vw,2.6rem); line-height:1.1; margin:0;
-  color:var(--glaze);
+  font-size:clamp(2rem,4.2vw,3rem); font-weight:600; line-height:1.1; margin:0;
+  color:var(--cream);
+}
+.detail-head .tags{margin:0}
+.detail-subtitle{
+  flex-basis:100%;
+  font-family:var(--font); font-weight:500; font-size:.95rem; letter-spacing:.03em;
+  color:var(--blue); margin:0;
 }
 
 .detail-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:clamp(2rem,5vw,4.5rem); align-items:start}
 .detail-left{}
 .detail-body{margin-top:2.2rem}
-.detail-body p{margin:0 0 1.2rem; color:var(--coffee); max-width:58ch}
-.detail-body p strong{color:var(--coffee-pale); font-weight:400}
-.detail-body .note{font-size:.98rem; color:var(--coffee); font-style:italic}
+.detail-body p{margin:0 0 1.2rem; color:var(--cream); max-width:58ch}
+.detail-body p strong{color:var(--cream); font-weight:600}
+.detail-body .note{font-size:.98rem; color:var(--cream); opacity:.7; font-style:italic}
 
 /* images stack one above the next, so the reader scrolls through them */
 .detail-media{display:flex; flex-direction:column; gap:1.6rem}
@@ -536,14 +568,39 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
 .detail-media.media-grid .media-item img{max-height:min(40vh,340px)}
 .media-video{border:0; background:none}
 .video-caption{
-  font-family:var(--mono); font-size:.8rem; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--coffee); margin-top:.6rem; text-align:right;
+  font-family:var(--font); font-weight:600; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--blue); margin-top:.6rem; text-align:right;
 }
 
 @media (max-width:900px){
   .detail-grid{grid-template-columns:1fr; gap:2.5rem}
   .detail-left{position:static}
   .detail-media.media-grid{grid-template-columns:1fr}
+}
+
+/* ── more projects (bottom of a project page) ───────────── */
+
+.more-projects{margin-top:5rem; padding-top:3.5rem; border-top:1px solid var(--line)}
+.more-label{
+  font-family:var(--font); font-weight:600; font-size:.78rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blue); margin:0 0 1.6rem;
+}
+.more-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.6rem}
+.more-card{
+  display:flex; flex-direction:column;
+  background:var(--ground-2); border:1px solid var(--line); border-radius:14px;
+  overflow:hidden; text-decoration:none; color:inherit;
+  transition:border-color .35s var(--ease), transform .35s var(--ease);
+}
+.more-card:hover{border-color:rgba(219,193,172,.55); transform:translateY(-3px)}
+.more-media{aspect-ratio:16/9; background:var(--ground-3); overflow:hidden}
+.more-media img{width:100%; height:100%; object-fit:cover; display:block}
+.more-body{padding:1.1rem 1.3rem 1.3rem}
+.more-headline{font-size:1.1rem; font-weight:600; color:var(--cream); margin:0 0 .3rem}
+.more-title{font-size:.78rem; font-weight:500; color:var(--blue); margin:0}
+
+@media (max-width:700px){
+  .more-grid{grid-template-columns:1fr}
 }
 
 /* ── scroll reveal ─────────────────────────────────────── */
@@ -558,9 +615,8 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .js-open .hero-name .clay,.js-run .hero-name .clay,
-  .js-open .hero-name .hot,.js-run .hero-name .hot,
   .js-open .hero-name .white,.js-run .hero-name .white,
-  .fire-on-view .clay,.fire-on-view .hot,.fire-on-view .white{opacity:0; animation:none}
+  .fire-on-view .clay,.fire-on-view .white{opacity:0; animation:none}
   .fire-on-view .fired{opacity:1; animation:none}
   .js-open .hero-name .fired,.js-run .hero-name .fired{opacity:1; animation:none}
   .js-open .portrait img,.js-run .portrait img{opacity:1; animation:none}
@@ -571,7 +627,6 @@ a.tag-repo:hover{background:var(--coffee-deep); color:var(--ground); border-colo
    Show colour by default there and skip the lift entirely. */
 @media (hover:none){
   .card-media img,.card-media video{filter:none; transform:none}
-  .tag-more{background:var(--coffee); color:var(--ground); border-color:var(--coffee)}
 }
 
 /* ── responsive ────────────────────────────────────────── */

@@ -1,12 +1,18 @@
 /* Every project lives here. index.html and project.html both read this file,
    so one change updates the card and the project page together.
-   Reorder these entries to reorder the grid. */
+   Reorder these entries to reorder the grid.
+
+   `headline` is the big, outcome-focused heading (what happened / what was
+   cool). `title` is the literal project name, shown smaller underneath it.
+
+   RANKING below controls the "More Projects" picks at the bottom of each
+   project page - it is independent of this array's order. */
 
 const PROJECTS = [
   {
     id: 'peva',
+    headline: 'Proving an ML Tool Reads Biology, Not Noise',
     title: 'Péva Phylogenetic Tree Support Tool',
-    date: 'May - July 2026',
     thumb: 'assets/peva-poster.jpg',
     media: [
       { type: 'img', src: 'assets/peva-poster.jpg', alt: 'Emily presenting her REU poster at UNC Charlotte',
@@ -41,8 +47,8 @@ const PROJECTS = [
 
   {
     id: 'bee',
+    headline: 'Building the Spelling Bee Helper I Always Wanted',
     title: 'NYT Spelling Bee Companion',
-    date: 'Feb - Mar 2026; July 2026',
     thumb: 'assets/bee-poster.jpg',
     media: [
       { type: 'video', src: 'assets/bee-demo.mp4', poster: 'assets/bee-poster.jpg',
@@ -80,66 +86,30 @@ const PROJECTS = [
 
   {
     id: 'clubs',
+    headline: 'Designing a Database for Campus Life',
     title: 'Campus Club Portal',
-    date: 'Oct - Dec 2025; Aug 2026 - Present',
     thumb: 'assets/club-events.png',
     media: [
       { type: 'img', src: 'assets/club-events.png', alt: 'Event announcement and filtering interface',
-        caption: 'Event Discovery and Filters' },
-      { type: 'img', src: 'assets/club-flowchart.png', alt: 'Flowchart comparing the current manual PDF process with the proposed platform',
-        caption: 'First Flowchart Draft: Fixing the Information Flow' }
+        caption: 'Event Discovery and Filters' }
     ],
     links: [{ label: 'GitHub', href: 'https://github.com/elliot108/COMPSCI-310-GROUP-PROJECT' }],
-    skills: ['SQL', 'Node.js', 'Figma', 'Database design', 'Product strategy & pivoting', 'User-centric design'],
+    skills: ['SQL', 'Node.js', 'Figma', 'Database design', 'Team coordination', 'User-centric design'],
     body: `
-      <p>What began as a database project geared for students to have a centralized
-      platform to keep up with campus events and get personalized recommendations has now
-      turned into a workspace designed to streamline and automate club operations.</p>
+      <p>A team project to give students one place to find campus events and keep up with
+      club activity, instead of scattered PDFs and text chains.</p>
 
-      <p>Our original concept was valuable, but not especially realistic for our small
-      campus. I revisited the idea and realized the potential for replacing static,
-      unstructured PDFs with a connected website, so inputs like club member logs and
-      budget expenses are consistently stored as active data. That brought a whole new
-      world of benefits: <strong>reducing manual work and errors, eliminating redundant
-      email exchanges, and unlocking data analytics</strong> for both individual clubs and
-      the university club board.</p>
-
-      <p>While the personalized recommendations and general student users are discarded,
-      I'm able to adapt some logic of the original data schema, SQL queries, and frontend
-      interface. I'm storyboarding new user flows, writing pseudocode for the new automated
-      features, and consulting with the Campus Clubs Coordinator once I return to campus to
-      further align my work with her needs.</p>`
-  },
-
-  {
-    id: 'presence',
-    title: 'Duke-DKU Presence Lab Project',
-    date: 'May 2026 - Present',
-    thumb: 'assets/presence-lab.jpg',
-    media: [
-      { type: 'img', src: 'assets/presence-lab.jpg', alt: 'Duke-DKU Presence Lab project artwork',
-        caption: 'Duke-DKU Presence Lab' }
-    ],
-    links: [{ label: 'Presence Lab', href: 'https://bassconnections.duke.edu/project/duke-dku-presence-lab-portal-project-2026-2027/' }],
-    skills: ['Immersive media and XR', 'Interaction design', 'Cross-cultural collaboration'],
-    body: `
-      <p>I'm part of a year-long Duke-DKU team building experimental
-      <strong>"portals"</strong>, tech experiences that let our two campuses on opposite
-      sides of the world share a sense of presence.</p>
-
-      <p>We're currently researching ideas in immersive media, then will spring into
-      building our own: VR narratives, AR campus histories, networked sound art.</p>
-
-      <p>We're a small team across combinations of art, CS, and engineering. Some of us
-      will be at Duke in fall, some (including me) at Duke in spring, constantly
-      coordinating across a 12-hour time difference, which is in itself the problem we're
-      studying.</p>`
+      <p>Across seven weeks, we worked together in designing our <strong>SQL schema</strong>,
+      building out the backend, and prototyping the browsing and filtering interface in
+      Figma. Keeping the data model, the queries, and the frontend talking to each other
+      cleanly, while coordinating the work across a small team, I realized was as much the
+      project as any single feature or query.</p>`
   },
 
   {
     id: 'soundart',
+    headline: 'Sound That Reacts to What You Do',
     title: 'Sound Art in Virtual Spaces',
-    date: 'March 9 - 12, 2026',
     thumb: 'assets/soundart-poster.jpg',
     media: [
       { type: 'video', src: 'assets/soundart-demo.mp4', poster: 'assets/soundart-poster.jpg',
@@ -163,5 +133,14 @@ const PROJECTS = [
       intuition to turn our concept into a more dynamic virtual experience.</p>
 
       <p class="note">The voice in the walkthrough is my project partner's.</p>`
+  },
+
+  {
+    id: 'claudecode',
+    headline: 'Built with Claude Code',
+    title: "The portfolio site you're seeing right now!",
+    noDetail: true,   // no project page, no "Learn more", never shown in another project's More Projects
+    textOnly: true,   // no thumbnail/media - just a small centered title + subtitle card
+    links: []
   }
 ];

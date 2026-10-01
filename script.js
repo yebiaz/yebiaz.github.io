@@ -23,23 +23,40 @@ PROJECTS.forEach((p, i) => {
     .map(l => `<a class="tag tag-repo" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`)
     .join('');
 
-  card.innerHTML = `
-    <div class="card-media">
-      <img src="${p.thumb}" alt="" loading="lazy">
-    </div>
-    <div class="card-body">
-      <p class="card-date">${p.date}</p>
-      <h3 class="card-title">${p.title}</h3>
-      <div class="card-tags">
-        ${repoTags}
-        <a class="tag tag-more" href="${href}">Learn more ${ARROW}</a>
-      </div>
-    </div>`;
+  // The Claude Code card is a plain mention, not another page to browse: no
+  // "Learn more", no click-through.
+  const learnMore = p.noDetail ? '' : `<a class="tag tag-more" href="${href}">Learn more ${ARROW}</a>`;
+  if (p.noDetail) card.classList.add('card-static');
 
-  card.addEventListener('click', e => {
-    if (e.target.closest('a')) return;   // repo tag and Learn more do their own thing
-    window.location.href = href;
-  });
+  if (p.textOnly) {
+    // No thumbnail, no tags - just a small centered title/subtitle card.
+    card.classList.add('card-text-only');
+    card.innerHTML = `
+      <div class="card-body">
+        <h3 class="card-headline">${p.headline}</h3>
+        <p class="card-title">${p.title}</p>
+      </div>`;
+  } else {
+    card.innerHTML = `
+      <div class="card-media">
+        <img src="${p.thumb}" alt="" loading="lazy">
+      </div>
+      <div class="card-body">
+        <h3 class="card-headline">${p.headline}</h3>
+        <p class="card-title">${p.title}</p>
+        <div class="card-tags">
+          ${repoTags}
+          ${learnMore}
+        </div>
+      </div>`;
+  }
+
+  if (!p.noDetail) {
+    card.addEventListener('click', e => {
+      if (e.target.closest('a')) return;   // repo tag and Learn more do their own thing
+      window.location.href = href;
+    });
+  }
 
   // The spotlight follows the cursor: whichever card you touched last stays in
   // colour, so Péva hands off rather than the page going flat.
